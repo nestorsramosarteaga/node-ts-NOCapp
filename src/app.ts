@@ -1,4 +1,5 @@
 import { Server } from "./presentation/server";
+import { envs } from './config/envs.plugin';
 
 
 
@@ -8,5 +9,8 @@ import { Server } from "./presentation/server";
 
 
 async function main(){
-  Server.start();
+  // Server.start();
+  console.log({'MAILER_EMAIL': envs.MAILER_EMAIL})
+  console.log({'PORT': envs.PORT})
+  console.log({'PROD': envs.PROD})
 }

@@ -1,4 +1,5 @@
 import { envs } from "../config/envs.plugin";
+import { LogRepository } from "../domain/repositories/log.repository";
 import { CheckService } from "../domain/use-cases/checks/check.service";
 import { EmailService } from "../email/email.services";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
@@ -22,7 +23,7 @@ export class Server {
 
     // Send email
 
-    // const emailService = new EmailService();
+    // const emailService = new EmailService(fileSystemLogRepository);
 
     // const emailOptions = {
     //   to: 'nestorsramosarteaga@gmail.com',
@@ -34,7 +35,9 @@ export class Server {
     // };
     // emailService.sendEmail( emailOptions );
 
-    // emailService.sendEmailWithFileSystemLogs(['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@aol.com', 'nsramosarteaga@gmail.com'])
+    // emailService.sendEmailWithFileSystemLogs(
+    //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@aol.com', 'nsramosarteaga@gmail.com']
+    // );
 
     // CronService.createJob(
     //   '*/5 * * * * *',

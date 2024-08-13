@@ -3,21 +3,21 @@ import { LogRepository } from "../domain/repositories/log.repository";
 import { CheckService } from "../domain/use-cases/checks/check.service";
 import { SendEmailLogs } from "../domain/use-cases/emails/send-email-logs";
 import { EmailService } from "./email/email.services";
-import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
-import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
 import { LogSeverityLevel } from "../domain/entities/log.entity";
+import { PostgresLogDatasource, MongoLogDatasource, FileSystemDatasource } from "../infraestructure/datasources";
 
 
 
 // Instacias de las implementaciones
 const logRepository = new LogRepositoryImpl( // The DS can be changed here
-  new FileSystemDatasource(),
+  // new FileSystemDatasource(),
   // new MongoLogDatasource(),
+  new PostgresLogDatasource()
 );
 
-const emailService = new EmailService();
+// const emailService = new EmailService();
 
 
 export class Server {
@@ -38,7 +38,7 @@ export class Server {
     //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@maol.com', 'nsramosarteaga@gmail.com']
     // );
 
-    const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    const logs = await logRepository.getLogs(LogSeverityLevel.high);
     console.log(logs);
 
     // CronService.createJob(

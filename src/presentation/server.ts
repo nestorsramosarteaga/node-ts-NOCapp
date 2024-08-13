@@ -1,54 +1,55 @@
 import { envs } from "../config/envs.plugin";
 import { LogRepository } from "../domain/repositories/log.repository";
 import { CheckService } from "../domain/use-cases/checks/check.service";
-import { EmailService } from "../email/email.services";
+import { SendEmailLogs } from "../domain/use-cases/emails/send-email-logs";
+import { EmailService } from "./email/email.services";
 import { FileSystemDatasource } from "../infraestructure/datasources/file-system.datasource";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
+import { MongoLogDatasource } from "../infraestructure/datasources/mongo-log.datasource";
+import { LogSeverityLevel } from "../domain/entities/log.entity";
 
 
 
 // Instacias de las implementaciones
-const fileSystemLogRepository = new LogRepositoryImpl(
-  new FileSystemDatasource(), // The DS can be changed here
+const logRepository = new LogRepositoryImpl( // The DS can be changed here
+  new FileSystemDatasource(),
+  // new MongoLogDatasource(),
 );
 
+const emailService = new EmailService();
 
 
 export class Server {
 
-  public static start() {
+  public static async start() {
 
     console.log('Server started...');
 
     // Send email
-
-    // const emailService = new EmailService(fileSystemLogRepository);
-
-    // const emailOptions = {
-    //   to: 'nestorsramosarteaga@gmail.com',
-    //   subject: 'Logs de sistema',
-    //   htmlBody: `<h3>Logs de sistema - NOC app</h3>
-    //   <p>Esse ad non reprehenderit non aliquip.</p>
-    //   <p>Ver logs adjuntos</p>
-    //   `
-    // };
-    // emailService.sendEmail( emailOptions );
+    // new SendEmailLogs(
+    //   emailService,
+    //   logRepository
+    // ).execute(
+    //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@maol.com', 'nsramosarteaga@gmail.com']
+    // );
 
     // emailService.sendEmailWithFileSystemLogs(
-    //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@aol.com', 'nsramosarteaga@gmail.com']
+    //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@maol.com', 'nsramosarteaga@gmail.com']
     // );
+
+    const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    console.log(logs);
 
     // CronService.createJob(
     //   '*/5 * * * * *',
     //   () => {
-    //     const url = 'http://localhost:3000'
+    //     const url = 'http://google.com'
     //     new CheckService(
-    //       fileSystemLogRepository,
+    //       logRepository,
     //       () => console.log( `${url} is ok` ),
     //       ( error ) => console.error( error ),
     //     ).execute( url );
-    //     // new CheckService().execute('http://localhost:3000');
     //   }
     // );
 

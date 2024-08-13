@@ -12,3 +12,9 @@ MAILER_SECRET_KEY=
 
 PROD=false
 ```
+3. Instalar dependencias ``` npm install ```
+4. Levantar las bases de datos en composer
+```
+docker compose up -d
+```
+5. Iniciar aplicacion en modo dev ``` npm run dev ```

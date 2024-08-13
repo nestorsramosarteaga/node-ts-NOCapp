@@ -1,7 +1,6 @@
 import { envs } from "../config/envs.plugin";
 import { LogRepository } from "../domain/repositories/log.repository";
-import { CheckService } from "../domain/use-cases/checks/check.service";
-import { SendEmailLogs } from "../domain/use-cases/emails/send-email-logs";
+import { CheckService, CheckServiceMultiple, SendEmailLogs } from "../domain/use-cases";
 import { EmailService } from "./email/email.services";
 import { LogRepositoryImpl } from "../infraestructure/repositories/log.repository.impl";
 import { CronService } from "./cron/cron-service";
@@ -10,12 +9,17 @@ import { PostgresLogDatasource, MongoLogDatasource, FileSystemDatasource } from 
 
 
 
+
 // Instacias de las implementaciones
-const logRepository = new LogRepositoryImpl( // The DS can be changed here
-  // new FileSystemDatasource(),
-  // new MongoLogDatasource(),
-  new PostgresLogDatasource()
-);
+// const logRepository = new LogRepositoryImpl( // The DS can be changed here
+//   new FileSystemDatasource(),
+//   new MongoLogDatasource(),
+//   new PostgresLogDatasource()
+// );
+
+const fsLogRepository = new LogRepositoryImpl(  new FileSystemDatasource() );
+const mongoLogRepository = new LogRepositoryImpl(  new MongoLogDatasource() );
+const postgresLogRepository = new LogRepositoryImpl(  new PostgresLogDatasource() );
 
 // const emailService = new EmailService();
 
@@ -38,8 +42,8 @@ export class Server {
     //   ['nestor.ramos.lxxx@gmail.com', 'nestorsramosarteaga@gmail.com', 'nestorsramosarteaga@maol.com', 'nsramosarteaga@gmail.com']
     // );
 
-    const logs = await logRepository.getLogs(LogSeverityLevel.high);
-    console.log(logs);
+    // const logs = await logRepository.getLogs(LogSeverityLevel.low);
+    // console.log(logs);
 
     // CronService.createJob(
     //   '*/5 * * * * *',
@@ -47,6 +51,20 @@ export class Server {
     //     const url = 'http://google.com'
     //     new CheckService(
     //       logRepository,
+    //       () => console.log( `${url} is ok` ),
+    //       ( error ) => console.error( error ),
+    //     ).execute( url );
+    //   }
+    // );
+
+
+    /// multiple repositories
+    // CronService.createJob(
+    //   '*/5 * * * * *',
+    //   () => {
+    //     const url = 'http://google.com'
+    //     new CheckServiceMultiple(
+    //       [fsLogRepository, mongoLogRepository, postgresLogRepository],
     //       () => console.log( `${url} is ok` ),
     //       ( error ) => console.error( error ),
     //     ).execute( url );

@@ -58,7 +58,7 @@ export class Server {
     // );
 
 
-    /// multiple repositories
+    // multiple repositories
     // CronService.createJob(
     //   '*/5 * * * * *',
     //   () => {

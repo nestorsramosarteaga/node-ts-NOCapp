@@ -17,4 +17,8 @@ PROD=false
 ```
 docker compose up -d
 ```
-5. Iniciar aplicacion en modo dev ``` npm run dev ```
+5. Ejecutar el comando 
+```
+npx prisma migrate dev --name init
+```
+6. Iniciar aplicacion en modo dev ``` npm run dev ```

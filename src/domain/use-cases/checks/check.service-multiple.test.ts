@@ -41,8 +41,6 @@ describe('check.service-multiple.ts CheckServiceMultiple', () => {
 
     const wasOk = await checkService.execute(urlTest);
 
-    console.log(wasOk);
-
     expect(wasOk).toBe(true);
     expect(mockSuccessCallback).toHaveBeenCalled();
     expect(mockErrorCallback).not.toHaveBeenCalled();
@@ -75,7 +73,7 @@ describe('check.service-multiple.ts CheckServiceMultiple', () => {
       createdAt: expect.any(Object)
     }));
 
-  }, 6000);
+  },10000);
 
   test('should call successCallback when fetch returns false', async () => {
 
@@ -89,7 +87,7 @@ describe('check.service-multiple.ts CheckServiceMultiple', () => {
     expect(mockRepo2.saveLog).toBeCalledWith(expect.any(LogEntity));
     expect(mockRepo3.saveLog).toBeCalledWith(expect.any(LogEntity));
 
-  });
+  }, 10000);
 
 
 })

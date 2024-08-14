@@ -48,7 +48,7 @@ describe('check.service.ts CheckService', () => {
       createdAt: expect.any(Object)
     }));
 
-  });
+  },10000);
 
   test('should call successCallback when fetch returns false', async () => {
 

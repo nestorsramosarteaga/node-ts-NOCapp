@@ -37,7 +37,7 @@ export class CheckServiceMultiple implements CheckServiceMultipleUseCase {
       const log = new LogEntity({
         message: `Service ${ url } working`,
         level: LogSeverityLevel.low,
-        origin: 'check.services.ts'
+        origin: 'check.services-multiple.ts'
       });
       this.saveLogsToMultipleOrigins( log );
 

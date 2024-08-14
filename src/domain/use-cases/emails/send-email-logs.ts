@@ -4,7 +4,6 @@ import { LogRepository } from "../../repositories/log.repository";
 
 
 
-
 interface SendLogemailUseCase {
   execute: ( to: string | string[] ) => Promise<boolean>
 }
@@ -22,7 +21,7 @@ export class SendEmailLogs implements SendLogemailUseCase {
       const sent = await this.emailService.sendEmailWithFileSystemLogs(to);
 
       if ( !sent ) {
-        throw new Error('Email log nt sent');
+        throw new Error('Email log not sent');
       }
 
       const newLog = new LogEntity({

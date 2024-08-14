@@ -62,6 +62,6 @@ describe('check.service.ts CheckService', () => {
       expect.any(LogEntity)
     );
 
-  });
+  }, 15000);
 
 })

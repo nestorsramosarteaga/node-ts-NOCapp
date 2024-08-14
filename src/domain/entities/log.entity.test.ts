@@ -24,6 +24,7 @@ describe('log.entity.ts LogEntity', () => {
 
   test('should create a LogEntity instance from json', () => {
     const json = `{"message":"Service http://google.com working","level":"low","origin":"check.services.ts","createdAt":"2024-08-13T17:09:55.619Z"}`;
+    
     const log = LogEntity.fromJson(json);
 
     expect(log).toBeInstanceOf(LogEntity);

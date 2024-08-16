@@ -3,8 +3,6 @@ import { LogRepository } from '../../domain/repositories/log.repository';
 import { LogDatasource } from '../../domain/datasources/log.datasource';
 
 
-
-
 export class LogRepositoryImpl implements LogRepository {
 
   constructor(

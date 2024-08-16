@@ -31,12 +31,12 @@ export class LogEntity{
     json = ( json === '' ) ? '{}' : json;
 
     const {message, level, origin, createdAt} = JSON.parse(json);
+    //console.log(message, level,!(level in LogSeverityLevel), LogSeverityLevel)
+    // if( !message ) throw new Error('Message is required');
 
-    if( !message ) throw new Error('Message is required');
-
-    if (!(level in LogSeverityLevel)) {
-      throw new Error(`Invalid Log Severity Level: ${level}. Allowed values are: ${Object.values(LogSeverityLevel).join(', ')}`);
-    }
+    // if (!(level in LogSeverityLevel)) {
+    //   throw new Error(`Invalid Log Severity Level: ${level}. Allowed values are: ${Object.values(LogSeverityLevel).join(', ')}`);
+    // }
 
     const log = new LogEntity({
       message,
